@@ -17,6 +17,7 @@ function calcPage(res) {
 
 function computePage(adr, res) {
     var q = url.parse(adr, true);
+    var operator = "";
 
     res.write("< !DOCTYPE html >\n");
     res.write("    <html>");
@@ -27,12 +28,12 @@ function computePage(adr, res) {
     
     var X = q.query.x * 1, Y = q.query.y * 1, Y;
     switch (q.query.op) {
-        case "plus": Z = X + Y; break;
-        case "minus": Z = X - Y; break;
-        case "times": Z = X * Y; break;
-        case "div": Z = X / Y; break;
+        case "plus": operator = "+"; Z = X + Y; break;
+        case "minus": operator = "-"; Z = X - Y; break;
+        case "times": operator = "*"; Z = X * Y; break;
+        case "div": operator = "/"; Z = X / Y; break;
     }
-    var expr = X + " " + q.query.op + " " + Y + " = " + Z;
+    var expr = X + " " + operator + " " + Y + " = " + Z;
     
     res.write("            <h1>" + expr + "</h1>\n");
     res.write("        </body>\n");
